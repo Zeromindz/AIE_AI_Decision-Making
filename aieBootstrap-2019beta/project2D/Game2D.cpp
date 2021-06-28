@@ -13,9 +13,13 @@ Game2D::Game2D(const char* title, int width, int height, bool fullscreen) : Game
 	m_font = new aie::Font("./font/consolas.ttf", 24);
 
 	// Create a player, enemy and pathfinder.
-	m_Player = new Player();
+	m_Player = new Agent();
 	m_Enemy = new Enemy();
 	m_Pathfinder = new Pathfinder();
+
+	// Create agent
+	keyboardBehaviour = new KeyboardBehaviour();
+	m_Player->AddBehaviour(keyboardBehaviour);
 }
 
 Game2D::~Game2D()
@@ -34,6 +38,8 @@ Game2D::~Game2D()
 	delete m_2dRenderer;
 	delete m_Pathfinder;
 
+	delete keyboardBehaviour;
+
 }
 
 void Game2D::Update(float deltaTime)
@@ -42,20 +48,7 @@ void Game2D::Update(float deltaTime)
 	aie::Input* input = aie::Input::GetInstance();
 
 	//TODO follow player with camera
-	m_2dRenderer->SetCameraPos(m_Player->GetPos().x - 600, m_Player->GetPos().y - 300);
-	//aie::Input* input = aie::Input::GetInstance();
-	//if (input->IsKeyDown(aie::INPUT_KEY_W))
-	//	m_Pos.y += 500.0f * deltaTime;
-	//
-	//if (input->IsKeyDown(aie::INPUT_KEY_S))
-	//	m_Pos.y -= 500.0f * deltaTime;
-	//
-	//if (input->IsKeyDown(aie::INPUT_KEY_A))
-	//	m_Pos.x -= 500.0f * deltaTime;
-	//
-	//if (input->IsKeyDown(aie::INPUT_KEY_D))
-	//	m_Pos.x += 500.0f * deltaTime;
-
+	m_2dRenderer->SetCameraPos(m_Player->GetPosition().x - 600, m_Player->GetPosition().y - 300);
 
 	// Update the player.
 	m_Player->Update(deltaTime);
@@ -86,7 +79,6 @@ void Game2D::Update(float deltaTime)
 		}
 	}
 
-
 	// Exit the application if escape is pressed.
 	if (input->IsKeyDown(aie::INPUT_KEY_ESCAPE))
 	{
@@ -110,7 +102,7 @@ void Game2D::Draw()
 
 	// Pathfinding
 
-	m_StartPos = m_Player->GetPos();
+	m_StartPos = m_Player->GetPosition();
 	m_EndPos = m_Enemy->m_Pos;
 
 	GraphNode* startNode = m_Pathfinder->GetNodeByPos(m_StartPos);
@@ -141,6 +133,7 @@ void Game2D::Draw()
 	m_Player->Draw(m_2dRenderer);
 	// Draw Enemy
 	m_Enemy->Draw(m_2dRenderer);
+
 
 	// Draw text
 	float windowHeight = (float)application->GetWindowHeight();

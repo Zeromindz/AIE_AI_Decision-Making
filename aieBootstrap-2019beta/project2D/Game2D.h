@@ -5,6 +5,8 @@
 #include "Pathfinder.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Agent.h"
+#include "KeyboardBehaviour.h"
 
 class Player;
 
@@ -26,8 +28,12 @@ protected:
 	aie::Font* m_font;
 
 	// Player.
-	Player* m_Player;
+	//Player* m_Player;
 	Enemy* m_Enemy;
+
+	Agent* m_Player;
+	KeyboardBehaviour* keyboardBehaviour;
+
 	Vector2 m_StartPos;
 	Vector2 m_EndPos;
 	std::vector<Vector2> m_Path;
