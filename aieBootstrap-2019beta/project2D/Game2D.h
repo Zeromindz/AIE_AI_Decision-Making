@@ -2,6 +2,9 @@
 
 #include "Game.h"
 #include "Renderer2D.h"
+#include "Pathfinder.h"
+#include "Player.h"
+#include "Enemy.h"
 
 class Player;
 
@@ -15,13 +18,17 @@ public:
 	virtual void Draw();
 
 protected:
-	aie::Renderer2D*	m_2dRenderer;
+	aie::Renderer2D* m_2dRenderer;
+
+	Pathfinder* m_Pathfinder;
 
 	// Example textures.
-	aie::Texture*		m_texture;
-	aie::Texture*		m_texture2;
-	aie::Font*			m_font;
+	aie::Font* m_font;
 
 	// Player.
 	Player* m_Player;
+	Enemy* m_Enemy;
+	Vector2 m_StartPos;
+	Vector2 m_EndPos;
+	std::vector<Vector2> m_Path;
 };
