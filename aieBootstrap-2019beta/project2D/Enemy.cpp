@@ -3,16 +3,18 @@
 
 Enemy::Enemy()
 {
-	m_texture = new aie::Texture("./textures/ship.png");
-	m_Pos.x = 0;
-	m_Pos.y = 0;
-	m_Speed = 5;
+	// Load enemy sprite
+	m_Texture = new aie::Texture("./textures/ship.png");
 
+	// Set enemie's position
+	SetPostition({0, 0});
 }
 
 Enemy::~Enemy()
 {
-
+	// Delete the enemie's sprite.
+	delete m_Texture;
+	m_Texture = nullptr;
 }
 
 void Enemy::Update(float deltaTime)
@@ -21,23 +23,14 @@ void Enemy::Update(float deltaTime)
 }
 
 
-void Enemy::Move(std::vector<Vector2> _path, float deltaTime)
-{
-	// TODO Pathfinding
-	for (int i = 0; i < _path.size(); i++)
-	{
-
-
-	}
-
-}
-
 void Enemy::Draw(aie::Renderer2D* renderer)
 {
 	// Draw the enemies sprite.
+	renderer->SetRenderColour(0.0f, 0.0f, 0.0f, 0.7f);
+	renderer->DrawSprite(m_Texture, GetPosition().x + 30, GetPosition().y - 50);
 	renderer->SetRenderColour(1.0f, 0.0f, 0.0f);
-	renderer->DrawSprite(m_texture, m_Pos.x, m_Pos.y);
-
+	renderer->DrawSprite(m_Texture, GetPosition().x, GetPosition().y);
+	
 	renderer->SetRenderColour(1.0f, 1.0f, 1.0f);
 
 }

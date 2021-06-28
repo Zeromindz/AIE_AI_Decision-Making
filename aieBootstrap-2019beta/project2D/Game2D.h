@@ -7,6 +7,7 @@
 #include "Enemy.h"
 #include "Agent.h"
 #include "KeyboardBehaviour.h"
+#include "SeekBehaviour.h"
 
 class Player;
 
@@ -27,12 +28,11 @@ protected:
 	// Example textures.
 	aie::Font* m_font;
 
-	// Player.
-	//Player* m_Player;
+	Player* m_Player;
 	Enemy* m_Enemy;
 
-	Agent* m_Player;
-	KeyboardBehaviour* keyboardBehaviour;
+	KeyboardBehaviour* m_KeyboardBehaviour;
+	SeekBehaviour* m_SeekBehaviour;
 
 	Vector2 m_StartPos;
 	Vector2 m_EndPos;

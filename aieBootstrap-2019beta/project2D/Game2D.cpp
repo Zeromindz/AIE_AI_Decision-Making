@@ -13,13 +13,15 @@ Game2D::Game2D(const char* title, int width, int height, bool fullscreen) : Game
 	m_font = new aie::Font("./font/consolas.ttf", 24);
 
 	// Create a player, enemy and pathfinder.
-	m_Player = new Agent();
+	m_Player = new Player();
 	m_Enemy = new Enemy();
 	m_Pathfinder = new Pathfinder();
 
 	// Create agent
-	keyboardBehaviour = new KeyboardBehaviour();
-	m_Player->AddBehaviour(keyboardBehaviour);
+	m_KeyboardBehaviour = new KeyboardBehaviour();
+	m_Player->AddBehaviour(m_KeyboardBehaviour);
+	m_SeekBehaviour = new SeekBehaviour();
+	m_Enemy->AddBehaviour(m_SeekBehaviour);
 }
 
 Game2D::~Game2D()
@@ -38,7 +40,7 @@ Game2D::~Game2D()
 	delete m_2dRenderer;
 	delete m_Pathfinder;
 
-	delete keyboardBehaviour;
+	delete m_KeyboardBehaviour;
 
 }
 
@@ -53,7 +55,6 @@ void Game2D::Update(float deltaTime)
 	// Update the player.
 	m_Player->Update(deltaTime);
 	m_Enemy->Update(deltaTime);
-	m_Enemy->Move(m_Path, deltaTime);
 
 	// Create and remove walls
 	if (input->IsMouseButtonDown(0))
@@ -61,7 +62,7 @@ void Game2D::Update(float deltaTime)
 		float x = input->GetMouseX();
 		float y = input->GetMouseY();
 
-		GraphNode* target = m_Pathfinder->GetNodeByPos({ x, y });
+		GraphNode* target = m_Pathfinder->GetNodeByPos({ x + m_Player->GetPosition().x - 600, y + m_Player->GetPosition().y - 300 });
 		if (target)
 		{
 			target->m_Blocked = true;
@@ -72,13 +73,13 @@ void Game2D::Update(float deltaTime)
 		float x = input->GetMouseX();
 		float y = input->GetMouseY();
 
-		GraphNode* target = m_Pathfinder->GetNodeByPos({ x, y });
+		GraphNode* target = m_Pathfinder->GetNodeByPos({ x, y});
 		if (target)
 		{
 			target->m_Blocked = false;
 		}
 	}
-
+	
 	// Exit the application if escape is pressed.
 	if (input->IsKeyDown(aie::INPUT_KEY_ESCAPE))
 	{
@@ -103,7 +104,7 @@ void Game2D::Draw()
 	// Pathfinding
 
 	m_StartPos = m_Player->GetPosition();
-	m_EndPos = m_Enemy->m_Pos;
+	m_EndPos = m_Enemy->GetPosition();
 
 	GraphNode* startNode = m_Pathfinder->GetNodeByPos(m_StartPos);
 	GraphNode* endNode = m_Pathfinder->GetNodeByPos(m_EndPos);
@@ -123,7 +124,6 @@ void Game2D::Draw()
 
 				}
 			}
-
 		}
 	}
 

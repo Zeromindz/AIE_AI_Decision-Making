@@ -13,10 +13,10 @@ public:
 	virtual ~Agent();
 
 	// Update the agent and it's behaviour
-	virtual void Update(float _deltaTime);
+	virtual void Update(float _deltaTime) = 0;
 
 	// Draw the agent
-	virtual void Draw(aie::Renderer2D* renderer);
+	virtual void Draw(aie::Renderer2D* renderer) = 0;
 
 	// Add a behaviour to the agent
 	void AddBehaviour(Behaviour* _behaviour);

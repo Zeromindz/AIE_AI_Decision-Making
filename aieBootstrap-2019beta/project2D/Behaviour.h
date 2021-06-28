@@ -9,7 +9,8 @@ public:
 	virtual ~Behaviour();
 
 	// Pure virtual function for executing the behaviour
-	virtual bool Update(Agent* _agent, float _deltaTime) = 0;
+	virtual bool Update(Agent* _agent, float _deltaTime) { return true; }
+	virtual bool Update(Agent* _agent, std::vector<Vector2> _path, float _deltaTime) { return true; }
 
 private:
 
