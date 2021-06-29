@@ -2,42 +2,52 @@
 #include <Vector>
 #include "Vector2.h"
 #include "Renderer2D.h"
-#include "Texture.h"
 
-class Behaviour;
+class IBehaviour;
+
+struct MovementInfo
+{
+	Vector2 m_Position = { 0, 0 };
+	Vector2 m_Velocity = { 0, 0 };
+	Vector2 m_Force = { 0, 0 };
+	float m_FrictionModifier = 0.99f;
+	float m_MaxSpeed = 200;
+};
 
 class Agent
 {
 public:
 	Agent();
+	Agent(float _posX, float _posY);
 	virtual ~Agent();
 
 	// Update the agent and it's behaviour
-	virtual void Update(float _deltaTime) = 0;
+	virtual void Update(float _deltaTime);
 
 	// Draw the agent
-	virtual void Draw(aie::Renderer2D* renderer) = 0;
+	virtual void Draw(aie::Renderer2D* renderer);
 
 	// Add a behaviour to the agent
-	void AddBehaviour(Behaviour* _behaviour);
+	void AddBehaviour(IBehaviour* _behaviour);
 
 	// Movement functions
-	void SetPostition(Vector2 _position) { m_Position = _position; }
-	Vector2 GetPosition() { return m_Position; }
-	void SetVelocity(Vector2 _velocity) { m_Velocity = _velocity; }
-	Vector2 GetVelocity() { return m_Velocity; }
-	// TODO - Add _force to m_Force
-	void AddForce(Vector2 _force) { m_Force = _force + m_Force; }
+	void SetPostition(Vector2 _position) { m_MovementInfo.m_Position = _position; }
+	Vector2 GetPosition() { return m_MovementInfo.m_Position; }
+	void SetVelocity(Vector2 _velocity) { m_MovementInfo.m_Velocity = _velocity; }
+	Vector2 GetVelocity() { return m_MovementInfo.m_Velocity; }
+	void SetMaxSpeed(float speed) { m_MovementInfo.m_MaxSpeed = speed; }
+	float GetMaxSpeed() { return m_MovementInfo.m_MaxSpeed; }
+	void AddForce(Vector2 _force) { m_MovementInfo.m_Force = _force + m_MovementInfo.m_Force; }
 
 
-private:
-	aie::Texture* m_Texture;
+	MovementInfo m_MovementInfo;
 
-	std::vector<Behaviour*> m_BehaviourList;
+protected:
+	Vector2 Truncate(Vector2 _v, float _max);
 
-	Vector2 m_Position = {0, 0};
-	Vector2 m_Velocity = {0, 0};
-	Vector2 m_Force = {0, 0};
+	std::vector<IBehaviour*> m_BehaviourList;
+	IBehaviour* m_CurrentBehaviour;
+	
 
 };
 

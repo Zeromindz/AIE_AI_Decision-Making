@@ -1,26 +1,22 @@
 #include "SeekBehaviour.h"
+#include <vector>
+#include "Vector2.h"
+#include "Agent.h"
 
-SeekBehaviour::SeekBehaviour()
+void SeekBehaviour::Update(Agent* _agent, float _deltaTime, std::vector<Vector2> _path, MovementInfo& _movementInfo)
 {
-	m_CurrentPos = { 0, 0 }; 
-	m_TargetPos = { 0, 0 };
-}
+	m_Destination = _path[10];
+	Vector2 v = m_Destination - _agent->GetPosition();
 
-SeekBehaviour::~SeekBehaviour()
-{
-}
-
-bool SeekBehaviour::Update(Agent* _agent, std::vector<Vector2> path, float _deltaTime)
-{
-	Vector2 force = {0, 0};
-	Vector2 currentPos = _agent->GetPosition();
-	for (int i = 0; i < path.size(); i++)
+	if (v.x == 0 && v.y == 0)
 	{
-		Vector2 targetPos = path[i];
+		return;
 	}
 
-	force = (m_TargetPos - currentPos).Scale(m_SpeedIncrement);
-	_agent->AddForce(force);
+	Vector2 desiredVelocity = v.Normalize().Scale(_agent->GetMaxSpeed());
+	Vector2 steeringForce = desiredVelocity - _agent->GetVelocity();
 
-	return true;
+	_agent->AddForce(steeringForce);
+
+	return;
 }

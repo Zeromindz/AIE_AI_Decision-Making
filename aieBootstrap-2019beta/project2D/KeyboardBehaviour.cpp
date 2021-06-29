@@ -1,16 +1,8 @@
 #include "KeyboardBehaviour.h"
-#include "Vector2.h"
 #include "Input.h"
+#include "Agent.h"
 
-KeyboardBehaviour::KeyboardBehaviour()
-{
-}
-
-KeyboardBehaviour::~KeyboardBehaviour()
-{
-}
-
-bool KeyboardBehaviour::Update(Agent* _agent, float _deltaTime)
+void KeyboardBehaviour::Update(Agent* _agent, float _deltaTime, MovementInfo& _movementInfo)
 {
 	aie::Input* input = aie::Input::GetInstance();
 
@@ -25,7 +17,11 @@ bool KeyboardBehaviour::Update(Agent* _agent, float _deltaTime)
 	if (input->IsKeyDown(aie::INPUT_KEY_D))
 		force.x = m_SpeedIncrement;
 
-	_agent->AddForce(force);
+	if (input->IsKeyDown(aie::INPUT_KEY_LEFT_SHIFT))
+	{
+		force.Multiply(3.0f);
+	}
+	
 
-	return true;
+	_agent->AddForce(force);
 }

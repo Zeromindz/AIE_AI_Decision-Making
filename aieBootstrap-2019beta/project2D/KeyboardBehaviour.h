@@ -1,13 +1,13 @@
 #pragma once
-#include "Behaviour.h"
+#include "IBehaviour.h"
 
-class KeyboardBehaviour : public Behaviour
+class KeyboardBehaviour : public IBehaviour
 {
 public:
-	KeyboardBehaviour();
-	virtual ~KeyboardBehaviour();
+	KeyboardBehaviour() {}
+	virtual ~KeyboardBehaviour() {}
 
-	virtual bool Update(Agent* _agent, float _deltaTime);
+	void Update(Agent* _agent, float _deltaTime, MovementInfo &_movementInfo);
 
 private:
 	float m_SpeedIncrement = 200.0f;

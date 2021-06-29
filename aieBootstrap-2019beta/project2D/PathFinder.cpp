@@ -1,7 +1,7 @@
 #include "Pathfinder.h"
 #include "Heap.h"
 
-#define NODE_SIZE 25
+#define NODE_SIZE 22
 #define NODE_DRAW_SIZE 20
 
 Pathfinder::Pathfinder()
@@ -145,6 +145,7 @@ bool Pathfinder::AStarPath(Vector2 _start, Vector2 _end, std::vector<Vector2>& _
 
 				if (newG < neighbour->m_GScore)
 				{
+					// We found a cheaper path
 					neighbour->m_GScore = newG;
 					neighbour->m_FScore = neighbour->m_GScore + neighbour->m_HScore;
 					neighbour->m_Prev = current;
@@ -314,10 +315,23 @@ void Pathfinder::Render(aie::Renderer2D* _renderer)
 			// Draw nodes
 			GraphNode* node = m_Nodes[x][y];
 			if (node->m_Blocked)
-				_renderer->SetRenderColour(0.0f, 0.419f, 0.819f); // Blue
-			else
-				_renderer->SetRenderColour(0.780f, 0.615f, 0.419f); // White
+			{
+				_renderer->SetRenderColour(2.0f / 255, 80.0f / 255, 147.0f / 255); // Walls - Blue
+			}
+			else 
+			{
+				if (m_ClosedList[x][y])
+				{
+					float i = x;
+					_renderer->SetRenderColour((122 + i) / 255, (2 + i) / 255, (19 + i) / 255); // Searched nodes - Red
+				}
+				else
+				{
+					_renderer->SetRenderColour(38.0f / 255, 38.0f / 255, 38.0f / 255); // Default ground - White
+				}
+			}
 
+			// Draw cells
 			_renderer->DrawBox(node->m_Position.x, node->m_Position.y, NODE_DRAW_SIZE, NODE_DRAW_SIZE);
 
 			// Draw connections
@@ -327,8 +341,7 @@ void Pathfinder::Render(aie::Renderer2D* _renderer)
 				GraphNode* neighbour = node->m_Neighbors[n];
 				if (neighbour)
 				{
-					_renderer->DrawLine(node->m_Position.x, node->m_Position.y,
-						neighbour->m_Position.x, neighbour->m_Position.y);
+					//_renderer->DrawLine(node->m_Position.x, node->m_Position.y, neighbour->m_Position.x, neighbour->m_Position.y);
 				}
 			}
 		}

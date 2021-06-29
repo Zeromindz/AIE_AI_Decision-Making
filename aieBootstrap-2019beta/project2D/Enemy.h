@@ -9,6 +9,7 @@ class Enemy : public Agent
 {
 public:
 	Enemy();
+	Enemy(float _posX, float _posY);
 	~Enemy();
 
 	void Update(float deltaTime);

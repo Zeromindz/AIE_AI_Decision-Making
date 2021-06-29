@@ -1,18 +1,18 @@
 #pragma once
-#include "Behaviour.h"
+#include "IBehaviour.h"
 
-class SeekBehaviour : public Behaviour
+class SeekBehaviour : public IBehaviour
 {
 public:
-	SeekBehaviour();
-	virtual ~SeekBehaviour();
+	SeekBehaviour() {}
+	virtual ~SeekBehaviour() {}
 
-	virtual bool Update(Agent* _agent, std::vector<Vector2> _path, float _deltaTime);
+	//bool Update(Agent* _agent, std::vector<Vector2> _path, float _deltaTime);
+	void Update(Agent* _agent, float _deltaTime, std::vector<Vector2> path, MovementInfo& _movementInfo);
+	void SetDestination(Vector2 _dest) { m_Destination = _dest; }
 
 private:
-	float m_SpeedIncrement = 100.0f;
 
-	Vector2 m_CurrentPos;
-	Vector2 m_TargetPos;
+	Vector2 m_Destination;
 };
 

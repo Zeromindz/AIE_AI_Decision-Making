@@ -1,9 +1,6 @@
 #include "Behaviour.h"
+#include "PathFinder.h"
 
-Behaviour::Behaviour()
-{
-}
 
-Behaviour::~Behaviour()
-{
-}
+
+

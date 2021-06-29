@@ -2,12 +2,15 @@
 
 #include "Game.h"
 #include "Renderer2D.h"
-#include "Pathfinder.h"
+#include "Input.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "Agent.h"
+#include "Pathfinder.h"
 #include "KeyboardBehaviour.h"
 #include "SeekBehaviour.h"
+#include "FollowBehaviour.h"
+#include "WanderBehaviour.h"
 
 class Player;
 
@@ -30,11 +33,11 @@ protected:
 
 	Player* m_Player;
 	Enemy* m_Enemy;
-
-	KeyboardBehaviour* m_KeyboardBehaviour;
-	SeekBehaviour* m_SeekBehaviour;
+	Agent* m_FollowAgent;
 
 	Vector2 m_StartPos;
 	Vector2 m_EndPos;
 	std::vector<Vector2> m_Path;
+
+	aie::Input* m_Input;
 };
