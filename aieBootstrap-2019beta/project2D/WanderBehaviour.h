@@ -19,7 +19,7 @@ private:
 	float m_CircleRadius = 500;
 	float m_WanderAngle = 0;
 
-	const float m_AngleChange = 10000;
+	const float m_AngleChange = 100;
 
 	// Debug
 	//Vector2 debug_cirleCenter;

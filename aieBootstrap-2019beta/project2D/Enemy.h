@@ -9,14 +9,17 @@ class Enemy : public Agent
 {
 public:
 	Enemy();
-	Enemy(float _posX, float _posY);
+	Enemy(float _posX, float _posY, Agent* _target);
 	~Enemy();
 
 	void Update(float deltaTime);
 	void Draw(aie::Renderer2D* renderer);
 
 private:
-	aie::Texture* m_Texture;
+	Agent* m_Target;
+
+	aie::Texture* m_BodyTexture;
+	aie::Texture* m_GunTexture;
 
 };
 

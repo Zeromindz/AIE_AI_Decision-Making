@@ -4,7 +4,7 @@
 #include "Renderer2D.h"
 #include "Heap.h"
 
-#define GRID_SIZE 50
+#define GRID_SIZE 100
 
 class Pathfinder
 {

@@ -14,10 +14,11 @@ Game2D::Game2D(const char* title, int width, int height, bool fullscreen) : Game
 
 	// Create a player, enemy and pathfinder.
 	m_Player = new Player();
-	m_Enemy = new Enemy(200, 200);
+	m_Enemy = new Enemy(500, 500, m_Player);
 	m_Pathfinder = new Pathfinder();
 
-	m_FollowAgent = new Agent();
+	m_Projectile = new Projectile();
+
 	
 	//Initialize position vectors to 0 for path visualization
 	m_StartPos = { 0, 0 };
@@ -26,7 +27,8 @@ Game2D::Game2D(const char* title, int width, int height, bool fullscreen) : Game
 	// Add behaviours
 	m_Player->AddBehaviour(new KeyboardBehaviour());
 	m_Enemy->AddBehaviour(new WanderBehaviour());
-	m_FollowAgent->AddBehaviour(new FollowBehaviour(m_Player));
+
+	m_Projectile->AddBehaviour(new FollowBehaviour(m_Player));
 
 }
 
@@ -34,16 +36,10 @@ Game2D::~Game2D()
 {
 	// Delete player.
 	delete m_Player;
-	m_Player = nullptr;
 	delete m_Enemy;
-	m_Enemy = nullptr;
 
-	delete m_FollowAgent;
-	m_FollowAgent = nullptr;
-
-	// Deleted the textures.
+	// Delete the textures.
 	delete m_font;
-
 
 	// Delete the renderer and pathfinder.
 	delete m_2dRenderer;
@@ -59,8 +55,7 @@ void Game2D::Update(float deltaTime)
 	// Update the player.
 	m_Player->Update(deltaTime);
 	m_Enemy->Update(deltaTime);
-	m_FollowAgent->Update(deltaTime);
-
+	m_Projectile->Update(deltaTime);
 
 	// Create and remove walls
 	if (m_Input->IsMouseButtonDown(0))
@@ -85,6 +80,16 @@ void Game2D::Update(float deltaTime)
 			target->m_Blocked = false;
 		}
 	}
+	// Drop walls while boosting
+	//if (m_Input->IsKeyDown(aie::INPUT_KEY_LEFT_SHIFT))
+	//{
+	//	GraphNode* target = m_Pathfinder->GetNodeByPos({ m_Player->GetPosition().x,m_Player->GetPosition().y});
+	//
+	//	if (target)
+	//	{
+	//		target->m_Blocked = true;
+	//	}
+	//}
 	
 	// Exit the application if escape is pressed.
 	if (m_Input->IsKeyDown(aie::INPUT_KEY_ESCAPE))
@@ -109,8 +114,8 @@ void Game2D::Draw()
 
 	// Pathfinding
 
-	m_StartPos = m_Player->GetPosition();
-	m_EndPos = m_Enemy->GetPosition();
+	m_StartPos = m_Enemy->GetPosition();
+	m_EndPos = m_Player->GetPosition();
 
 	GraphNode* startNode = m_Pathfinder->GetNodeByPos(m_StartPos);
 	GraphNode* endNode = m_Pathfinder->GetNodeByPos(m_EndPos);
@@ -139,14 +144,15 @@ void Game2D::Draw()
 	m_Player->Draw(m_2dRenderer);
 	// Draw Enemy
 	m_Enemy->Draw(m_2dRenderer);
+	m_Projectile->Draw(m_2dRenderer);
 	// Draw following object
-	m_2dRenderer->SetRenderColour(0.0f, 0.0f, 0.0f, 0.7f);
-	m_2dRenderer->DrawCircle(m_FollowAgent->GetPosition().x + 30, m_FollowAgent->GetPosition().y - 50, 10.0f);
-	m_2dRenderer->SetRenderColour(0.0f, 0.0f, 0.0f);
-	m_2dRenderer->DrawCircle(m_FollowAgent->GetPosition().x, m_FollowAgent->GetPosition().y, 14.0f);
-	m_2dRenderer->SetRenderColour(1.0f, 0.0f, 0.0f);
-	m_2dRenderer->DrawCircle(m_FollowAgent->GetPosition().x, m_FollowAgent->GetPosition().y, 10.0f);
-	m_2dRenderer->SetRenderColour(1.0f, 1.0f, 1.0f);
+	//m_2dRenderer->SetRenderColour(0.0f, 0.0f, 0.0f, 0.7f);
+	//m_2dRenderer->DrawCircle(m_FollowAgent->GetPosition().x + 30, m_FollowAgent->GetPosition().y - 50, 10.0f);
+	//m_2dRenderer->SetRenderColour(0.0f, 0.0f, 0.0f);
+	//m_2dRenderer->DrawCircle(m_FollowAgent->GetPosition().x, m_FollowAgent->GetPosition().y, 14.0f);
+	//m_2dRenderer->SetRenderColour(1.0f, 0.0f, 0.0f);
+	//m_2dRenderer->DrawCircle(m_FollowAgent->GetPosition().x, m_FollowAgent->GetPosition().y, 10.0f);
+	//m_2dRenderer->SetRenderColour(1.0f, 1.0f, 1.0f);
 	
 	// Draw text
 	float windowHeight = (float)application->GetWindowHeight();

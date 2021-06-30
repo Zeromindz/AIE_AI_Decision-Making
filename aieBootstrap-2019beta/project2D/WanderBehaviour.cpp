@@ -19,8 +19,8 @@ void WanderBehaviour::Update(Agent* _agent, float deltaTime, MovementInfo& _beha
 
 	// Calculate circle center
 	// m_circleDistance from the current agent position, in the same direction as the current velocity
-	//Vector2 circleCenter = velocity.Normalize().Scale(m_CircleDistance);
-	Vector2 circleCenter = {0, 0};
+	Vector2 circleCenter = velocity.Normalize().Scale(m_CircleDistance);
+	//Vector2 circleCenter = {0, 0};
 
 	Vector2 displacement = {0, -1};
 	displacement = displacement.Scale(m_CircleRadius);

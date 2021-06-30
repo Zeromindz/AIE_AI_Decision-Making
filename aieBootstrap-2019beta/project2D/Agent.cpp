@@ -14,7 +14,7 @@ Agent::Agent(float _posX, float _posY)
 
 Agent::~Agent()
 {
-	
+
 }
 
 void Agent::Update(float _deltaTime)
@@ -29,12 +29,11 @@ void Agent::Update(float _deltaTime)
 		m_BehaviourList[i]->Update(this, _deltaTime, m_MovementInfo);
 	}
 
-	// Add Force multiplied by delta time to Velocity
+	// V = V + (F * t)
 	// Option 1 --> super speed
 	m_MovementInfo.m_Velocity = m_MovementInfo.m_Velocity + m_MovementInfo.m_Force.Scale(_deltaTime);
 	// Option 1 --> capped speed
 	//m_MovementInfo.m_Velocity = Truncate((GetVelocity() + (m_MovementInfo.m_Force.Scale(_deltaTime))), m_MovementInfo.m_MaxSpeed);
-
 
 	// Add Velocity multiplied by delta time to Position
 	m_MovementInfo.m_Position = m_MovementInfo.m_Position + m_MovementInfo.m_Velocity.Scale(_deltaTime);
@@ -42,7 +41,7 @@ void Agent::Update(float _deltaTime)
 	m_MovementInfo.m_Velocity = m_MovementInfo.m_Velocity.Scale(m_MovementInfo.m_FrictionModifier);
 }
 
-void Agent::Draw(aie::Renderer2D* renderer)
+void Agent::Draw(aie::Renderer2D* _renderer)
 {
 	
 }

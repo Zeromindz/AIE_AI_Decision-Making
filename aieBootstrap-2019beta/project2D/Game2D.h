@@ -3,9 +3,10 @@
 #include "Game.h"
 #include "Renderer2D.h"
 #include "Input.h"
+#include "Agent.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "Agent.h"
+#include "Projectile.h"
 #include "Pathfinder.h"
 #include "KeyboardBehaviour.h"
 #include "SeekBehaviour.h"
@@ -33,7 +34,7 @@ protected:
 
 	Player* m_Player;
 	Enemy* m_Enemy;
-	Agent* m_FollowAgent;
+	Projectile* m_Projectile;
 
 	Vector2 m_StartPos;
 	Vector2 m_EndPos;

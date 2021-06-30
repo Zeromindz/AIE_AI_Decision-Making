@@ -9,6 +9,7 @@ class Player : public Agent
 {
 public:
 	Player();
+	Player(float _posX, float _posY);
 	~Player();
 
 	void Update(float _deltaTime);

@@ -323,7 +323,7 @@ void Pathfinder::Render(aie::Renderer2D* _renderer)
 				if (m_ClosedList[x][y])
 				{
 					float i = x;
-					_renderer->SetRenderColour((122 + i) / 255, (2 + i) / 255, (19 + i) / 255); // Searched nodes - Red
+					_renderer->SetRenderColour((60 + i) / 255, (200 + i) / 255, (19 + i) / 255); // Searched nodes - Red
 				}
 				else
 				{

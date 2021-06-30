@@ -46,8 +46,7 @@ protected:
 	Vector2 Truncate(Vector2 _v, float _max);
 
 	std::vector<IBehaviour*> m_BehaviourList;
-	IBehaviour* m_CurrentBehaviour;
-	
+	//IBehaviour* m_CurrentBehaviour;
 
 };
 
