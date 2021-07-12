@@ -10,6 +10,7 @@ struct MovementInfo
 	Vector2 m_Position = { 0, 0 };
 	Vector2 m_Velocity = { 0, 0 };
 	Vector2 m_Force = { 0, 0 };
+
 	float m_FrictionModifier = 0.99f;
 	float m_MaxSpeed = 200;
 };
@@ -45,8 +46,9 @@ public:
 protected:
 	Vector2 Truncate(Vector2 _v, float _max);
 
-	std::vector<IBehaviour*> m_BehaviourList;
-	//IBehaviour* m_CurrentBehaviour;
+	//std::vector<IBehaviour*> m_BehaviourList;
+	
+	IBehaviour* m_CurrentBehaviour = nullptr;
 
 };
 

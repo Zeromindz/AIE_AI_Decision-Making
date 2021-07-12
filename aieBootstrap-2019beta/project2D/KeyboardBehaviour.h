@@ -11,6 +11,6 @@ public:
 
 private:
 	float m_SpeedIncrement = 200.0f;
-
+	float m_BoostMultiplier = 3.0f;
 };
 

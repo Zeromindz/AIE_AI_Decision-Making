@@ -28,6 +28,7 @@ Player::~Player()
 void Player::Update(float _deltaTime)
 {
 	Agent::Update(_deltaTime);
+	
 }
 
 void Player::Draw(aie::Renderer2D* _renderer)

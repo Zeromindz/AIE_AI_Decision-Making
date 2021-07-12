@@ -138,6 +138,7 @@ bool Pathfinder::AStarPath(Vector2 _start, Vector2 _end, std::vector<Vector2>& _
 			if (m_ClosedList[neighbour->m_IndexX][neighbour->m_IndexY]) //neighbour already in closed list
 				continue;
 
+			
 			if (m_OpenListHeap.Contains(neighbour))
 			{
 				// Neighbour exists in the open list
@@ -316,18 +317,18 @@ void Pathfinder::Render(aie::Renderer2D* _renderer)
 			GraphNode* node = m_Nodes[x][y];
 			if (node->m_Blocked)
 			{
-				_renderer->SetRenderColour(2.0f / 255, 80.0f / 255, 147.0f / 255); // Walls - Blue
+				_renderer->SetRenderColour(197.0f / 255, 20.0f / 255, 20.0f / 255); // Walls - Orange
 			}
 			else 
 			{
 				if (m_ClosedList[x][y])
 				{
 					float i = x;
-					_renderer->SetRenderColour((60 + i) / 255, (200 + i) / 255, (19 + i) / 255); // Searched nodes - Red
+					_renderer->SetRenderColour((60 + i) / 255, (200 + i) / 255, (19 + i) / 255); // Searched nodes - Green
 				}
 				else
 				{
-					_renderer->SetRenderColour(38.0f / 255, 38.0f / 255, 38.0f / 255); // Default ground - White
+					_renderer->SetRenderColour(38.0f / 255, 38.0f / 255, 38.0f / 255); // Default ground - Grey
 				}
 			}
 
@@ -346,6 +347,8 @@ void Pathfinder::Render(aie::Renderer2D* _renderer)
 			}
 		}
 	}
+
+
 	// Reset colour back to default
 	_renderer->SetRenderColour(1.0f, 1.0f, 1.0f); // White
 }

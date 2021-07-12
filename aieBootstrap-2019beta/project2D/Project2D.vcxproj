@@ -173,6 +173,7 @@
   <ItemGroup>
     <ClCompile Include="Agent.cpp" />
     <ClCompile Include="Behaviour.cpp" />
+    <ClCompile Include="Building.cpp" />
     <ClCompile Include="Condition.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FollowBehaviour.cpp" />
@@ -182,6 +183,7 @@
     <ClCompile Include="KeyboardBehaviour.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PathFinder.cpp" />
+    <ClCompile Include="PathFollowBehaviour.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="SeekBehaviour.cpp" />
@@ -192,6 +194,7 @@
   <ItemGroup>
     <ClInclude Include="Agent.h" />
     <ClInclude Include="Behaviour.h" />
+    <ClInclude Include="Building.h" />
     <ClInclude Include="Condition.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FollowBehaviour.h" />
@@ -201,6 +204,7 @@
     <ClInclude Include="IBehaviour.h" />
     <ClInclude Include="KeyboardBehaviour.h" />
     <ClInclude Include="PathFinder.h" />
+    <ClInclude Include="PathFollowBehaviour.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="SeekBehaviour.h" />
