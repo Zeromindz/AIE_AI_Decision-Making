@@ -22,34 +22,6 @@ Game2D::Game2D(const char* title, int width, int height, bool fullscreen) : Game
 	m_Input = aie::Input::GetInstance();
 	m_2dRenderer = new aie::Renderer2D();
 	m_Font = new aie::Font("Assets/font/consolas_bold.ttf", 24);
-
-	// Create pathfinder
-	m_Pathfinder = new Pathfinder();
-
-	// Create agents.
-	m_Player = new Player();
-	m_EnemyCount = 3;
-	for (int i = 0; i < m_EnemyCount; i++)
-	{
-		m_EnemyList.push_back(new Enemy(i * 200, i * 200, m_Player, m_Pathfinder));
-	}
-	m_Projectile = new Projectile();
-
-	// Create building
-	m_Building = new Building(400, 400);
-
-	//Initialize position vectors to 0 for path visualization
-	m_StartPos = { 0, 0 };
-	m_EndPos = { 0, 0 };
-
-	// Add behaviours
-	m_Player->AddBehaviour(new KeyboardBehaviour());
-	for (int i = 0; i < m_EnemyCount; i++)
-	{
-		m_EnemyList[i]->AddBehaviour(new PathFollowBehaviour(m_Pathfinder, m_Player));
-	}
-	
-	m_Projectile->AddBehaviour(new FollowBehaviour(m_Player));
 }
 
 Game2D::~Game2D()
@@ -71,20 +43,56 @@ Game2D::~Game2D()
 
 }
 
-void Game2D::Update(float deltaTime)
+void Game2D::Initialize()
+{
+	// Create pathfinder
+	m_Pathfinder = new Pathfinder();
+
+	// Create agents.
+	m_Player = new Player();
+	for (int i = 0; i < m_EnemyCount; i++)
+	{
+		m_EnemyList.push_back(new Enemy(m_Player));
+	}
+	m_Projectile = new Projectile();
+	m_WanderingEnemy = new Enemy(m_Player);
+
+	// Create building
+	m_Building = new Building((GRID_SIZE * 22) / 2, (GRID_SIZE * 22) / 2);
+	
+	//Initialize position vectors
+	m_Player->SetPosition({ 400, 400 });
+	m_EnemyList[0]->SetPosition({ 800, 300 });
+	m_EnemyList[1]->SetPosition({ 1700, 1000 });
+	m_EnemyList[2]->SetPosition({ 100, 800 });
+	m_WanderingEnemy->SetPosition({ 100, 100 });
+
+	// Add behaviours
+	m_Player->AddBehaviour(new KeyboardBehaviour());
+	for (int i = 0; i < m_EnemyCount; i++)
+	{
+		m_EnemyList[i]->AddBehaviour(new PathFollowBehaviour(m_Player, m_Pathfinder));
+	}
+	m_Projectile->AddBehaviour(new FollowBehaviour(m_Player));
+	m_WanderingEnemy->AddBehaviour(new WanderBehaviour());
+
+}
+
+void Game2D::Update(float _deltaTime)
 {
 	// Update camera position
 	m_2dRenderer->SetCameraPos(m_Player->GetPosition().x - 600, m_Player->GetPosition().y - 300);
+
 	//===================================================================/
 	// Update agents.
 	//_________________________________________________________________/
-	m_Player->Update(deltaTime);
+	m_Player->Update(_deltaTime);
 	for (int i = 0; i < m_EnemyCount; i++)
 	{
-		m_EnemyList[i]->Update(deltaTime);
+		m_EnemyList[i]->Update(_deltaTime);
 	}
-	m_Projectile->Update(deltaTime);
-	
+	m_Projectile->Update(_deltaTime);
+	m_WanderingEnemy->Update(_deltaTime);
 
 	// Get dist from enemy to player
 	m_Dist = (m_Player->GetPosition() - m_EnemyList[0]->GetPosition()).Magnitude();
@@ -152,33 +160,7 @@ void Game2D::Draw()
 
 	//Draw grid
 	m_Pathfinder->Render(m_2dRenderer);
-	
-	// Pathfinding
-	
-	m_StartPos = m_EnemyList[0]->GetPosition();
-	m_EndPos = m_Player->GetPosition();
-	
-	GraphNode* startNode = m_Pathfinder->GetNodeByPos(m_StartPos);
-	GraphNode* endNode = m_Pathfinder->GetNodeByPos(m_EndPos);
-	
-	if (startNode && endNode)
-	{
-		if (!startNode->m_Blocked && !endNode->m_Blocked)
-		{
-			m_Pathfinder->AStarPath(m_StartPos, m_EndPos, m_Path);
-			// Draw Path
-			m_2dRenderer->SetRenderColour(1.0f, 0.0f, 0.0f);
-			for (int i = 0; i < m_Path.size() - 1; ++i)
-			{
-				if (i < m_Path.size())
-				{
-					m_2dRenderer->DrawLine(m_Path[i].x, m_Path[i].y, m_Path[i + 1].x, m_Path[i + 1].y, 6.0f);
-	
-				}
-			}
-		}
-	}
-	
+
 	// Reset colour to default
 	m_2dRenderer->SetRenderColour(1.0f, 1.0f, 1.0f);
 	
@@ -188,7 +170,10 @@ void Game2D::Draw()
 	{
 		m_EnemyList[i]->Draw(m_2dRenderer);
 	}
+
 	m_Projectile->Draw(m_2dRenderer);
+
+	m_WanderingEnemy->Draw(m_2dRenderer);
 
 	// Draw buildings
 	m_Building->Draw(m_2dRenderer);
@@ -203,7 +188,7 @@ void Game2D::Draw()
 	m_2dRenderer->DrawText2D(m_Font, dist, m_EnemyList[0]->GetPosition().x, m_EnemyList[0]->GetPosition().y);
 
 	// Draw a line between player and enemy
-	m_2dRenderer->DrawLine(m_Player->GetPosition().x, m_Player->GetPosition().y, m_EnemyList[0]->GetPosition().x, m_EnemyList[0]->GetPosition().y, 2.0f);
+	m_2dRenderer->DrawLine(m_Player->GetPosition().x, m_Player->GetPosition().y, m_Building->GetPosition().x, m_Building->GetPosition().y);
 
 	// Performance text
 	char fps[32];

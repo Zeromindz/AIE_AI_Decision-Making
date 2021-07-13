@@ -175,6 +175,8 @@
     <ClCompile Include="Behaviour.cpp" />
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="Condition.cpp" />
+    <ClCompile Include="DecisionTree.cpp" />
+    <ClCompile Include="DynamicObject.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FollowBehaviour.cpp" />
     <ClCompile Include="Game2D.cpp" />
@@ -182,6 +184,7 @@
     <ClCompile Include="IBehaviour.cpp" />
     <ClCompile Include="KeyboardBehaviour.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="PathFinder.cpp" />
     <ClCompile Include="PathFollowBehaviour.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -196,6 +199,8 @@
     <ClInclude Include="Behaviour.h" />
     <ClInclude Include="Building.h" />
     <ClInclude Include="Condition.h" />
+    <ClInclude Include="DecisionTree.h" />
+    <ClInclude Include="DynamicObject.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FollowBehaviour.h" />
     <ClInclude Include="Game2D.h" />
@@ -203,6 +208,7 @@
     <ClInclude Include="Heap.h" />
     <ClInclude Include="IBehaviour.h" />
     <ClInclude Include="KeyboardBehaviour.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="PathFinder.h" />
     <ClInclude Include="PathFollowBehaviour.h" />
     <ClInclude Include="Player.h" />

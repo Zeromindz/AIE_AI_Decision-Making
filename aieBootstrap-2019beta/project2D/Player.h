@@ -9,14 +9,13 @@ class Player : public Agent
 {
 public:
 	Player();
-	Player(float _posX, float _posY);
 	~Player();
 
 	void Update(float _deltaTime);
 	void Draw(aie::Renderer2D* _renderer);
 
 private:
-	aie::Texture* m_Texture;
+	aie::Texture* m_Texture = nullptr;
 
 };
 

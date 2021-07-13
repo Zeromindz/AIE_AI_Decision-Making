@@ -11,7 +11,7 @@ Projectile::Projectile()
 Projectile::Projectile(float _posX, float _posY)
 {
 	m_Texture = new aie::Texture("Assets/textures/rock_small.png");
-	SetPostition({ _posX, _posY });
+	SetPosition({ _posX, _posY });
 
 }
 

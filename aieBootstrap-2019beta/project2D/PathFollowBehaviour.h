@@ -7,10 +7,11 @@ class Pathfinder;
 class PathFollowBehaviour : public IBehaviour
 {
 public:
-	PathFollowBehaviour(Pathfinder* _pathfinder, Agent* _target);
+	PathFollowBehaviour(Agent* _target, Pathfinder* _pathfinder);
 	~PathFollowBehaviour() {}
 
-	void Update(Agent* _agent, float _deltaTime, MovementInfo& _behaviour);
+	void Update(Agent* _agent, float _deltaTime);
+	void DebugDraw(Agent* _agent, aie::Renderer2D* _renderer);
 
 private:
 	Agent* m_Target;

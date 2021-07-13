@@ -1,8 +1,6 @@
 #include "Agent.h"
 #include "IBehaviour.h"
 
-
-
 Agent::Agent()
 {
 
@@ -10,7 +8,7 @@ Agent::Agent()
 
 Agent::Agent(float _posX, float _posY)
 {
-	SetPostition({_posX, _posY});
+	SetPosition({ _posX, _posY });
 }
 
 Agent::~Agent()
@@ -20,18 +18,27 @@ Agent::~Agent()
 
 void Agent::Update(float _deltaTime)
 {
-	m_CurrentBehaviour->Update(this, _deltaTime, m_MovementInfo);
+	m_CurrentBehaviour->Update(this, _deltaTime);
 
 }
 
 void Agent::Draw(aie::Renderer2D* _renderer)
 {
-	
+	if (m_CurrentBehaviour)
+	{
+		m_CurrentBehaviour->DebugDraw(this, _renderer);
+	}
+	else
+	{
+		printf("current behaviour is null\n");
+	}
+
 }
 
 void Agent::AddBehaviour(IBehaviour* _behaviour)
 {
 	m_CurrentBehaviour = _behaviour;
+	
 }
 
 Vector2 Agent::Truncate(Vector2 _v, float _max)

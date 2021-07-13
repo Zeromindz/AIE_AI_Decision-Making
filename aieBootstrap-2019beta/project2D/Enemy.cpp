@@ -2,28 +2,17 @@
 #include "Input.h"
 #include "PathFinder.h"
 
-Enemy::Enemy()
+Enemy::Enemy(Agent* _target)
 {
+	m_Target = _target;
+
 	// Load enemy sprite
 	m_BodyTexture = new aie::Texture("Assets/textures/tankBeige.png");
 	m_GunTexture = new aie::Texture("Assets/textures/barrelBeige.png");
 	m_ExclamationTexture = new aie::Texture("Assets/textures/exclamation_mark_001.png");
-	// default enemy position to 0
-	SetPostition({0, 0});
+
 }
 
-Enemy::Enemy(float _posX, float _posY, Agent* _target, Pathfinder* _pathfinder)
-{
-	m_Pathfinder = _pathfinder;
-
-	m_BodyTexture = new aie::Texture("Assets/textures/tankBeige.png");
-	m_GunTexture = new aie::Texture("Assets/textures/barrelBeige.png");
-	m_ExclamationTexture = new aie::Texture("Assets/textures/exclamation_mark_001.png");
-
-	SetPostition({_posX, _posY});
-
-	m_Target = _target;
-}
 Enemy::~Enemy()
 {
 	// Delete the enemy sprite.
@@ -34,19 +23,18 @@ Enemy::~Enemy()
 void Enemy::Update(float _deltaTime)
 {
 	Agent::Update(_deltaTime);
-
-	m_TargetDistance = (m_Target->GetPosition() - GetPosition()).Magnitude();
-
-	m_Attacking = (m_TargetDistance < m_AttackRange);
 	
+	m_TargetDistance = (m_Target->GetPosition() - GetPosition()).Magnitude();
+	
+	m_Attacking = (m_TargetDistance < m_AttackRange);
 }
-
 
 void Enemy::Draw(aie::Renderer2D* _renderer)
 {
+	Agent::Draw(_renderer);
+
 	Vector2 m_StartPos = GetPosition();
 	Vector2 m_EndPos = m_Target->GetPosition();
-
 
 	// Calculate normalized movement vector
 	Vector2 moveDir = GetVelocity().Normalize();
@@ -66,11 +54,10 @@ void Enemy::Draw(aie::Renderer2D* _renderer)
 	_renderer->SetRenderColour(140.0f / 255, 30.0f / 255, 30.0f / 255);
 	_renderer->DrawSprite(m_GunTexture, GetPosition().x, GetPosition().y, 0, 0, aimAngle);
 
-
 	if (m_Attacking)
 	{
 		_renderer->SetRenderColour(1.0f, 1.0f, 1.0f);
-		_renderer->DrawSprite(m_ExclamationTexture, GetPosition().x, GetPosition().y, 50, 70);
+		_renderer->DrawSprite(m_ExclamationTexture, GetPosition().x, GetPosition().y + 60, 20, 80);
 	}
 	_renderer->SetRenderColour(1.0f, 1.0f, 1.0f);
 }

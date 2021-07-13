@@ -4,10 +4,11 @@
 class KeyboardBehaviour : public IBehaviour
 {
 public:
-	KeyboardBehaviour() {}
+	KeyboardBehaviour() { }
 	virtual ~KeyboardBehaviour() {}
 
-	void Update(Agent* _agent, float _deltaTime, MovementInfo &_movementInfo);
+	void Update(Agent* _agent, float _deltaTime);
+	void DebugDraw(Agent* _agent, aie::Renderer2D* _renderer);
 
 private:
 	float m_SpeedIncrement = 200.0f;

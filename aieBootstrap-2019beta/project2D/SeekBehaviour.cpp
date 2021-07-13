@@ -3,7 +3,7 @@
 #include "Vector2.h"
 #include "Agent.h"
 
-void SeekBehaviour::Update(Agent* _agent, float _deltaTime, std::vector<Vector2> _path, MovementInfo& _movementInfo)
+void SeekBehaviour::Update(Agent* _agent, float _deltaTime, std::vector<Vector2> _path)
 {
 	m_Destination = _path[10];
 	Vector2 v = m_Destination - _agent->GetPosition();

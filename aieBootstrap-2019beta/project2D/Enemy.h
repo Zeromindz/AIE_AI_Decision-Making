@@ -9,8 +9,7 @@ class Pathfinder;
 class Enemy : public Agent
 {
 public:
-	Enemy();
-	Enemy(float _posX, float _posY, Agent* _target, Pathfinder* _pathfinder);
+	Enemy(Agent* _target);
 	~Enemy();
 
 	void Update(float deltaTime);
@@ -21,9 +20,9 @@ private:
 	std::vector<Vector2> m_Path;
 	Agent* m_Target = nullptr;
 
-	aie::Texture* m_BodyTexture;
-	aie::Texture* m_GunTexture;
-	aie::Texture* m_ExclamationTexture;
+	aie::Texture* m_BodyTexture = nullptr;
+	aie::Texture* m_GunTexture = nullptr;
+	aie::Texture* m_ExclamationTexture = nullptr;
 
 	float m_AttackRange = 400;
 	float m_TargetDistance = 0;

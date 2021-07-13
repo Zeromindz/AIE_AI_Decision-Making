@@ -7,10 +7,11 @@ public:
 	FollowBehaviour(Agent* _target);
 	~FollowBehaviour() {}
 
-	void Update(Agent* _agent, float _deltaTime, MovementInfo& _behaviour);
+	void Update(Agent* _agent, float _deltaTime);
 
 private:
 	Agent* m_Target;
 
+	float m_ProjectileSpeed = 100;
 };
 

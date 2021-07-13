@@ -13,6 +13,9 @@ int main()
 	// Create the Application.
 	Game2D* game = new Game2D("AIE", 1280, 720, false);
 
+	// Initialize game objects
+	game->Initialize();
+
 	// Run the game loop.
 	game->Run();
 

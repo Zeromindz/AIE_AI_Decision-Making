@@ -8,7 +8,7 @@ public:
 	virtual ~SeekBehaviour() {}
 
 	//bool Update(Agent* _agent, std::vector<Vector2> _path, float _deltaTime);
-	void Update(Agent* _agent, float _deltaTime, std::vector<Vector2> path, MovementInfo& _movementInfo);
+	void Update(Agent* _agent, float _deltaTime, std::vector<Vector2> path);
 	void SetDestination(Vector2 _dest) { m_Destination = _dest; }
 
 private:

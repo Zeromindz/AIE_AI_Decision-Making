@@ -7,15 +7,6 @@ Player::Player()
 	// Load the player's sprite.
 	m_Texture = new aie::Texture("Assets/textures/ship.png");
 
-	// Set the player's position.
-	SetPostition({ 600, 400 });
-}
-
-Player::Player(float _posX, float _posY)
-{
-	m_Texture = new aie::Texture("Assets/textures/ship.png");
-
-	SetPostition({ _posX, _posY });
 }
 
 Player::~Player()
@@ -33,6 +24,7 @@ void Player::Update(float _deltaTime)
 
 void Player::Draw(aie::Renderer2D* _renderer)
 {
+	Agent::Draw(_renderer);
 	// Calculate normalized movement vector
 	Vector2 moveDir = GetVelocity().Normalize();
 	// Calculate sprite rotation angle
