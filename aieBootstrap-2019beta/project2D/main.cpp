@@ -5,6 +5,8 @@
 #include <crtdbg.h>
 #include "Game2D.h"
 
+#include "DebugNew.h"
+
 int main() 
 {
 	// Check for memeory leaks.

@@ -1,6 +1,8 @@
 #include "Agent.h"
 #include "IBehaviour.h"
 
+#include "DebugNew.h"
+
 Agent::Agent()
 {
 

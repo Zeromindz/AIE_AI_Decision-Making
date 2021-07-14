@@ -1,6 +1,8 @@
 #include "Pathfinder.h"
 #include "Heap.h"
 
+#include "DebugNew.h"
+
 #define NODE_SIZE 22
 #define NODE_DRAW_SIZE 20
 

@@ -1,5 +1,8 @@
 #include <vector>
 #include "Heap.h"
+
+#include "DebugNew.h"
+
 using namespace std;
 
 Heap::Heap()

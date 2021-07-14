@@ -12,6 +12,6 @@ public:
 private:
 	Agent* m_Target;
 
-	float m_ProjectileSpeed = 100;
+	float m_FollowSpeed = 100;
 };
 

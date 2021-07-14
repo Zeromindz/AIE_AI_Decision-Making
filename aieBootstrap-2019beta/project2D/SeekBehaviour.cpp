@@ -3,6 +3,8 @@
 #include "Vector2.h"
 #include "Agent.h"
 
+#include "DebugNew.h"
+
 void SeekBehaviour::Update(Agent* _agent, float _deltaTime, std::vector<Vector2> _path)
 {
 	m_Destination = _path[10];

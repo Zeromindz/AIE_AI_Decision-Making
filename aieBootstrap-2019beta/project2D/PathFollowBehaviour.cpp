@@ -2,6 +2,7 @@
 #include "PathFinder.h"
 #include "Agent.h"
 
+#include "DebugNew.h"
 
 PathFollowBehaviour::PathFollowBehaviour(Agent* _target, Pathfinder* _pathfinder)
 {

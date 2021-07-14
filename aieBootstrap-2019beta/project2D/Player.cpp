@@ -2,6 +2,8 @@
 #include "Player.h"
 #include "Input.h"
 
+#include "DebugNew.h"
+
 Player::Player()
 {
 	// Load the player's sprite.

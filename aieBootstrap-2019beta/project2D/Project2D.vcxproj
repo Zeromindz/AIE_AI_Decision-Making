@@ -173,11 +173,13 @@
   <ItemGroup>
     <ClCompile Include="Agent.cpp" />
     <ClCompile Include="Behaviour.cpp" />
+    <ClCompile Include="Boid.cpp" />
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="Condition.cpp" />
     <ClCompile Include="DecisionTree.cpp" />
     <ClCompile Include="DynamicObject.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="FlockingBehaviour.cpp" />
     <ClCompile Include="FollowBehaviour.cpp" />
     <ClCompile Include="Game2D.cpp" />
     <ClCompile Include="Heap.cpp" />
@@ -197,11 +199,14 @@
   <ItemGroup>
     <ClInclude Include="Agent.h" />
     <ClInclude Include="Behaviour.h" />
+    <ClInclude Include="Boid.h" />
     <ClInclude Include="Building.h" />
     <ClInclude Include="Condition.h" />
+    <ClInclude Include="DebugNew.h" />
     <ClInclude Include="DecisionTree.h" />
     <ClInclude Include="DynamicObject.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="FlockingBehaviour.h" />
     <ClInclude Include="FollowBehaviour.h" />
     <ClInclude Include="Game2D.h" />
     <ClInclude Include="GraphNode.h" />

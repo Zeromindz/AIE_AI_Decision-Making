@@ -2,6 +2,8 @@
 #include "Input.h"
 #include "Agent.h"
 
+#include "DebugNew.h"
+
 void KeyboardBehaviour::Update(Agent* _agent, float _deltaTime)
 {
 	aie::Input* input = aie::Input::GetInstance();

@@ -1,6 +1,8 @@
 #include "Vector2.h"
 #include <math.h>
 
+#include "DebugNew.h"
+
 Vector2 Vector2::operator+(Vector2 _lhs)
 {
 	Vector2 result;

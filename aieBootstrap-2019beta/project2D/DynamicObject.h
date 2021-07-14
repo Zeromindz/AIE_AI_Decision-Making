@@ -7,7 +7,7 @@ public:
 	~DynamicObject() {}
 
 	virtual void Update(float _deltaTime);
-	virtual void Draw(aie::Renderer2D _renderer);
+	virtual void Draw(aie::Renderer2D* _renderer);
 
 	// Movement functions
 	Vector2 GetVelocity() { return m_Velocity; }

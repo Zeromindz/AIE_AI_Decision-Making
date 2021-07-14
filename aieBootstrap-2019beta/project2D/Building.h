@@ -8,7 +8,7 @@ class Building
 public:
 	Building();
 	Building(float _posX, float _posY);
-	~Building() {}
+	~Building();
 
 	Vector2 GetPosition() { return { m_PosX, m_PosY }; }
 	bool IsAlive() { return m_Alive; }

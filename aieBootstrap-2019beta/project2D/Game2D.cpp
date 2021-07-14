@@ -9,12 +9,16 @@
 #include "Enemy.h"
 #include "Projectile.h"
 #include "Pathfinder.h"
+#include "Building.h"
+#include "Boid.h"
 #include "KeyboardBehaviour.h"
 #include "SeekBehaviour.h"
 #include "FollowBehaviour.h"
 #include "WanderBehaviour.h"
 #include "PathFollowBehaviour.h"
-#include "Building.h"
+#include "FlockingBehaviour.h"
+
+#include "DebugNew.h"
 
 Game2D::Game2D(const char* title, int width, int height, bool fullscreen) : Game(title, width, height, fullscreen)
 {
@@ -26,20 +30,32 @@ Game2D::Game2D(const char* title, int width, int height, bool fullscreen) : Game
 
 Game2D::~Game2D()
 {
+	// Delete the renderer and pathfinder.
+	delete m_2dRenderer;
+	m_2dRenderer = nullptr;
+	delete m_Pathfinder;
+	m_Pathfinder = nullptr;
+
 	// Delete player.
 	delete m_Player;
-
-	for each (Enemy * e in m_EnemyList)
+	m_Player = nullptr;
+	for each (Enemy* e in m_EnemyList)
 	{
 		delete e;
+		e = nullptr;
 	}
+	delete m_Projectile;
+	m_Projectile = nullptr;
 
 	// Delete the textures.
 	delete m_Font;
+	m_Font = nullptr;
 
-	// Delete the renderer and pathfinder.
-	delete m_2dRenderer;
-	delete m_Pathfinder;
+	delete m_WanderingEnemy;
+	m_WanderingEnemy = nullptr;
+
+	delete m_Building;
+	m_Building = nullptr;
 
 }
 
@@ -60,6 +76,16 @@ void Game2D::Initialize()
 	// Create building
 	m_Building = new Building((GRID_SIZE * 22) / 2, (GRID_SIZE * 22) / 2);
 	
+	// Boids
+	for (int i = 0; i < m_BoidCount; i++)
+	{
+		m_Boids.push_back(new Boid(200 * i, 200 * i));
+	}
+	for (int i = 0; i < m_BoidCount; i++)
+	{
+		m_Boids[i]->AddBehaviour(new FlockingBehaviour());
+	}
+
 	//Initialize position vectors
 	m_Player->SetPosition({ 400, 400 });
 	m_EnemyList[0]->SetPosition({ 800, 300 });
@@ -93,6 +119,11 @@ void Game2D::Update(float _deltaTime)
 	}
 	m_Projectile->Update(_deltaTime);
 	m_WanderingEnemy->Update(_deltaTime);
+
+	for (int i = 0; i < m_BoidCount; i++)
+	{
+		m_Boids[i]->Update(m_Boids, _deltaTime);
+	}
 
 	// Get dist from enemy to player
 	m_Dist = (m_Player->GetPosition() - m_EnemyList[0]->GetPosition()).Magnitude();
@@ -175,6 +206,13 @@ void Game2D::Draw()
 
 	m_WanderingEnemy->Draw(m_2dRenderer);
 
+	for (int i = 0; i < m_BoidCount; i++)
+	{
+		m_Boids[i]->Draw(m_2dRenderer);
+
+	}
+	//m_Boid->Draw(m_2dRenderer);
+
 	// Draw buildings
 	m_Building->Draw(m_2dRenderer);
 	
@@ -189,6 +227,8 @@ void Game2D::Draw()
 
 	// Draw a line between player and enemy
 	m_2dRenderer->DrawLine(m_Player->GetPosition().x, m_Player->GetPosition().y, m_Building->GetPosition().x, m_Building->GetPosition().y);
+	// Draw a line between player and boid
+	m_2dRenderer->DrawLine(m_Player->GetPosition().x, m_Player->GetPosition().y, m_Boids[0]->GetPosition().x, m_Boids[0]->GetPosition().y);
 
 	// Performance text
 	char fps[32];

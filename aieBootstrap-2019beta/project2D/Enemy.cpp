@@ -2,6 +2,8 @@
 #include "Input.h"
 #include "PathFinder.h"
 
+#include "DebugNew.h"
+
 Enemy::Enemy(Agent* _target)
 {
 	m_Target = _target;
@@ -15,9 +17,13 @@ Enemy::Enemy(Agent* _target)
 
 Enemy::~Enemy()
 {
-	// Delete the enemy sprite.
+	// Delete enemy sprites.
 	delete m_BodyTexture;
 	m_BodyTexture = nullptr;
+	delete m_GunTexture;
+	m_GunTexture = nullptr;
+	delete m_ExclamationTexture;
+	m_ExclamationTexture = nullptr;
 }
 
 void Enemy::Update(float _deltaTime)

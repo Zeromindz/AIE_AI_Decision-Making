@@ -1,5 +1,7 @@
 #include "Object.h"
 
+#include "DebugNew.h"
+
 void Object::Update(float _deltaTime)
 {
 

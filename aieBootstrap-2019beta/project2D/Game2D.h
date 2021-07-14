@@ -10,6 +10,7 @@ class Player;
 class Enemy;
 class Projectile;
 class Building;
+class Boid;
 
 class Game2D : public aie::Game
 {
@@ -34,8 +35,13 @@ protected:
 
 	std::vector<Vector2> m_Path;
 
+	std::vector<Boid*> m_Boids;
+	Boid* m_Boid; 
+	//Boid* m_Boid;
+
 	float m_Dist = 0;
 	int m_EnemyCount = 3;
+	int m_BoidCount = 5;
 
 	aie::Renderer2D* m_2dRenderer;
 	aie::Font* m_Font;

@@ -1,5 +1,7 @@
 #include "Projectile.h"
 
+#include "DebugNew.h"
+
 Projectile::Projectile()
 {
 	// Load the projectile's sprite.
@@ -17,6 +19,8 @@ Projectile::Projectile(float _posX, float _posY)
 
 Projectile::~Projectile()
 {
+	delete m_Texture;
+	m_Texture = nullptr;
 }
 
 void Projectile::Update(float _deltaTime)

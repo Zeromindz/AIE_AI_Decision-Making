@@ -2,6 +2,7 @@
 #include "WanderBehaviour.h"
 #include "Agent.h"
 
+#include "DebugNew.h"
 
 WanderBehaviour::WanderBehaviour()
 {
